@@ -79,6 +79,7 @@ greenlet @ file:///C:/ci/greenlet_1628888275363/work
 h5py @ file:///C:/ci/h5py_1622088609188/work
 HeapDict @ file:///Users/ktietz/demo/mc3/conda-bld/heapdict_1630598515714/work
 html5lib @ file:///Users/ktietz/demo/mc3/conda-bld/html5lib_1629144453894/work
+huggingface-hub==0.2.1
 idna @ file:///tmp/build/80754af9/idna_1622654382723/work
 imagecodecs @ file:///C:/ci/imagecodecs_1635511087451/work
 imageio @ file:///tmp/build/80754af9/imageio_1617700267927/work
@@ -212,6 +213,7 @@ requests @ file:///tmp/build/80754af9/requests_1629994808627/work
 rope @ file:///tmp/build/80754af9/rope_1623703006312/work
 Rtree @ file:///C:/ci/rtree_1618421015405/work
 ruamel-yaml-conda @ file:///C:/ci/ruamel_yaml_1616016898638/work
+sacremoses==0.0.46
 scikit-image==0.18.3
 scikit-learn @ file:///C:/ci/scikit-learn_1622739499047/work
 scikit-learn-intelex==2021.20210714.120553
@@ -252,6 +254,7 @@ threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263
 three-merge @ file:///tmp/build/80754af9/three-merge_1607553261110/work
 tifffile @ file:///tmp/build/80754af9/tifffile_1627275862826/work
 tinycss @ file:///tmp/build/80754af9/tinycss_1617713798712/work
+tokenizers==0.10.3
 toml @ file:///tmp/build/80754af9/toml_1616166611790/work
 toolz @ file:///home/linux1/recipes/ci/toolz_1610987900194/work
 torch==1.10.0
@@ -259,6 +262,7 @@ torchvision==0.11.1
 tornado @ file:///C:/ci/tornado_1606924294691/work
 tqdm @ file:///tmp/build/80754af9/tqdm_1635330843403/work
 traitlets @ file:///tmp/build/80754af9/traitlets_1632522747050/work
+transformers==4.12.5
 typed-ast @ file:///C:/ci/typed-ast_1624953797214/work
 typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1631814937681/work
 ujson @ file:///C:/ci/ujson_1611259568517/work
