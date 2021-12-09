@@ -1,2 +1,4 @@
 .ipynb_checkpoints
-
+examples/simple_translation/model.npz
+examples/simple_translation/data/input.en
+examples/simple_translation/data/input.de
