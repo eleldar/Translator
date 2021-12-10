@@ -1,0 +1,24 @@
+## используется модель https://object.pouta.csc.fi/OPUS-MT-models/en-ru/opus-2020-02-11.zip
+## нужны еще: https://object.pouta.csc.fi/Tatoeba-MT-models/ara-rus/opus-2021-02-23.zip
+## https://object.pouta.csc.fi/Tatoeba-MT-models/eng-ara/opus+bt-2021-04-13.zip
+
+
+## Исходный текст в файле text.txt
+->Is there anyone you can trust in this cold place?
+
+## еще нужна токенизация через файл preprocess.sh, хотя эту задачу по сути решает spm_encode
+?????? 
+подробности: https://ichi.pro/ru/sozdajte-svou-sobstvennuu-kacestvennuu-sistemu-masinnogo-perevoda-google-translate-237340552057974
+и: https://github.com/ageitgey/spanish-to-english-translation
+
+## получаем разметку
+~/marian/build/spm_encode --model source.spm text.txt > spm_text.txt
+->▁Есть ▁кто - нибудь , ▁кому ▁можно ▁доверять ▁в ▁этом ▁холод ном ▁месте ?
+
+## переводим
+cat spm_text.txt | ~/marian/build/marian-decoder -m opus.spm32k-spm32k.transformer-align.model1.npz.best-perplexity.npz -v opus.spm32k-spm32k.vocab.yml opus.spm32k-spm32k.vocab.yml > result.txt
+->▁Есть ▁кто - нибудь , ▁кому ▁можно ▁доверять ▁в ▁этом ▁холод ном ▁месте ?
+
+## постобработка - код хранится в файле postprocess.sh
+echo "▁При вет , ▁друг ▁мой ." | sed 's/ //g;s/▁/ /g'
+-> Есть кто-нибудь, кому можно доверять в этом холодном месте?
