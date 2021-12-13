@@ -2,3 +2,5 @@
 examples/simple_translation/model.npz
 examples/simple_translation/data/input.en
 examples/simple_translation/data/input.de
+examples/huggingface_translation/en_ru/data/
+examples/huggingface_translation/en_ru/model/
