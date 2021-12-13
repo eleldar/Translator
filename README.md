@@ -24,7 +24,7 @@ $ wget -qO- 'https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRO
 $ sudo sh -c 'echo deb https://apt.repos.intel.com/mkl all main > /etc/apt/sources.list.d/intel-mkl.list'
 $ sudo apt update
 $ sudo apt install intel-mkl-64bit-2020.0-088
-$ sudo kdir marian/build
+$ sudo mkdir marian/build
 $ cd marian/build
 $ sudo cmake .. -DCOMPILE_CPU=on -DCOMPILE_CUDA=off
 $ sudo make -j[число доступных процессоров]
@@ -60,8 +60,8 @@ $ sudo make -j[число доступных процессоров]
 
 
 ## Перевод
-- В папке examples запустите скрипт ```get_data.sh```, который подгрузит исходные данные (более 200 Мб).
-Перейдите в папку ```examples/simple_translation/``` и выполните скрипт ```translate.sh``` для перевода или используйте команду:
+- В папке examples запустите скрипт ```examples/get_data.sh```, который подгрузит исходные данные (более 200 Мб).
+Затем выполните скрипт ```translate.sh``` для перевода или используйте команду:
 ``` 
 ~/marian/build/marian-decoder -m model.npz -v vocab.spm < data/input.en vocab.spm > output.de
 ```
