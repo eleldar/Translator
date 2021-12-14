@@ -4,3 +4,5 @@ examples/simple_translation/data/input.en
 examples/simple_translation/data/input.de
 examples/huggingface_translation/en_ru/data/
 examples/huggingface_translation/en_ru/model/
+examples/huggingface_translation/en_ru/mosesdecoder/
+examples/simple_translation/output.de

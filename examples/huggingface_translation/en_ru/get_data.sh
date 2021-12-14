@@ -14,3 +14,16 @@ then
   fi
   rm -rf ./tmp/
 fi
+if ! [ -d ./marian-dev/ ]
+then
+  ln -s ~/marian-dev ./marian-dev
+fi
+if ! [ -d ./mosesdecoder/ ]
+then
+  mkdir -p mosesdecoder/tmp
+  git clone https://github.com/marian-nmt/marian-examples.git ./mosesdecoder/tmp
+  cd ./mosesdecoder/tmp/tools/
+  make
+  mv ./moses-scripts/scripts ../..
+  rm -rf ../../tmp
+fi

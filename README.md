@@ -10,7 +10,8 @@ Marian быть скомпилирован на машинах с устройс
 
 - [последний стабильный выпуск](https://github.com/marian-nmt/marian)
 - [репозиторий, поддерживаемый разработчиками этой библиотеки](https://github.com/marian-nmt/marian-dev).
-Для релизной версии следует при компиляции использовать флаг ```-DCMAKE_BUILD_TYPE=Release```. 
+Для релизной версии следует при компиляции использовать флаг ```-DCMAKE_BUILD_TYPE=Release```.
+Рекомендуется использовать этот репозиторий, т.к. под этот путь адаптированы многие скрипты к готовым моделям.
 
 ### Linux
 
@@ -19,14 +20,14 @@ Marian быть скомпилирован на машинах с устройс
 
 #### без GPU
 ```
-$ sudo git clone https://github.com/marian-nmt/marian
+$ sudo git clone https://github.com/marian-nmt/marian-dev
 $ wget -qO- 'https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB' | sudo apt-key add -
 $ sudo sh -c 'echo deb https://apt.repos.intel.com/mkl all main > /etc/apt/sources.list.d/intel-mkl.list'
 $ sudo apt update
 $ sudo apt install intel-mkl-64bit-2020.0-088
-$ sudo mkdir marian/build
-$ cd marian/build
-$ sudo cmake .. -DCOMPILE_CPU=on -DCOMPILE_CUDA=off
+$ sudo mkdir marian-dev/build
+$ cd marian-dev/build
+$ sudo cmake .. -DCOMPILE_CPU=on -DCOMPILE_CUDA=off -DCMAKE_BUILD_TYPE=Release
 $ sudo make -j[число доступных процессоров]
 ```
 
@@ -55,20 +56,20 @@ $ sudo make -j[число доступных процессоров]
   а Tatoeba - на формирование корпусов текстов для перевода (в т.ч. несколько моделей языковых пар).
   Список доступных моделей проекта Opus-MT получен с использованием скрипта в notebook.ipynb.
 - обучить с помощью команды [marian](https://marian-nmt.github.io/docs/)
-- дообучить предобученные [модели](https://huggingface.co/transformers/model_doc/marian.html).
-
+- обучить с помощью [библиотек Python](https://huggingface.co/transformers/model_doc/marian.html).
 
 
 ## Перевод
-- В папке examples запустите скрипт ```examples/get_data.sh```, который подгрузит исходные данные (более 200 Мб).
+- Для демонстрации простого перевода в папке examples запустите скрипт ```examples/simple_translation/get_data.sh```, который подгрузит исходные данные (более 200 Мб).
 Затем выполните скрипт ```translate.sh``` для перевода или используйте команду:
 ``` 
-~/marian/build/marian-decoder -m model.npz -v vocab.spm < data/input.en vocab.spm > output.de
+~/marian-dev/build/marian-decoder -m model.npz -v vocab.spm < data/input.en vocab.spm > output.de
 ```
 Эта команда переводит предложения из файла input.en (содержит предварительно обработанные предложения)
 в файл output.de (содержит такие же разметки, как и в файле input.en);
 здесь используется модель model.npz (RNN) и бинарный словарь vocab.spm (получается в результате обучения).
-- ...
+- Для перевода с использованием предобученных моделей перейтите в каталог ```examples/huggingface_translation```. Здесь находятся каталоги именованные языковыми парами. Для перевода перейдите в один из них и выполните скрипт ```get_data.sh```, затем используйте следующую команду для перевода:
+```./translate.sh input.txt > output.txt```, где input.txt - файл с предложениями, которые нужно перевести, output.txt - создаваемый файл с переводом.
 
 ## Обучение
 ...
