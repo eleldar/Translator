@@ -2,15 +2,12 @@
 ## нужны еще: https://object.pouta.csc.fi/Tatoeba-MT-models/ara-rus/opus-2021-02-23.zip
 ## https://object.pouta.csc.fi/Tatoeba-MT-models/eng-ara/opus+bt-2021-04-13.zip
 
+----------------------------------------------------------------------------------------
 
-## Исходный текст в файле text.txt
-->Is there anyone you can trust in this cold place?
-
-## еще нужна токенизация через файл preprocess.sh, хотя эту задачу по сути решает spm_encode
-?????? 
-подробности: https://ichi.pro/ru/sozdajte-svou-sobstvennuu-kacestvennuu-sistemu-masinnogo-perevoda-google-translate-237340552057974
+дополнительно: https://ichi.pro/ru/sozdajte-svou-sobstvennuu-kacestvennuu-sistemu-masinnogo-perevoda-google-translate-237340552057974
 и: https://github.com/ageitgey/spanish-to-english-translation
 
+----------------------------------------------------------------------------------------
 ## получаем разметку
 ~/marian/build/spm_encode --model source.spm text.txt > spm_text.txt
 ->▁Есть ▁кто - нибудь , ▁кому ▁можно ▁доверять ▁в ▁этом ▁холод ном ▁месте ?
