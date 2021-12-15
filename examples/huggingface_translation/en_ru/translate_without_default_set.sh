@@ -14,6 +14,9 @@ with open('src.tmp', 'w', encoding='utf-8') as f:
 EOF
 SPM=./model/source.spm
 DECODER=./marian-dev/build/marian-decoder 
-SET=./model/decoder.yml
-./model/preprocess.sh _ ${SPM} < ./src.tmp | ${DECODER} -c ${SET} | ./model/postprocess.sh 
+VOCAB=./model/opus.spm32k-spm32k.vocab.yml
+MODEL=./model/opus.spm32k-spm32k.transformer-align.model1.npz.best-perplexity.npz
+./model/preprocess.sh _ ${SPM} < ./src.tmp |
+${DECODER} -m ${MODEL} -v ${VOCAB} ${VOCAB} | 
+./model/postprocess.sh 
 rm ./src.tmp

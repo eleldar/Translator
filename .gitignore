@@ -6,3 +6,4 @@ examples/huggingface_translation/en_ru/data/
 examples/huggingface_translation/en_ru/model/
 examples/huggingface_translation/en_ru/mosesdecoder/
 examples/simple_translation/output.de
+examples/huggingface_translation/en_ru/marian-dev
