@@ -1,9 +1,12 @@
 #!/bin/bash
-read MESSAGE
+text=""
+while read line
+do
+  text+="${line} "
+done
 python3 - << EOF
-text = "$MESSAGE"
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
-result = ("\n".join((split_text_into_sentences(text, language='en'))))
+result = ("\n".join((split_text_into_sentences("$text", language='en'))))
 with open('src.tmp', 'w', encoding='utf-8') as f:
     f.write(f"{result}\n")
 EOF
