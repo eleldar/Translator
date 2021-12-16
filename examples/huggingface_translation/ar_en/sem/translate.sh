@@ -3,5 +3,7 @@ read
 SPM=./model/source.spm
 DECODER=./tools/marian-dev/build/marian-decoder 
 SET=./model/decoder.yml
-echo ">>ara<< ${REPLY}" | ./model/preprocess.sh _ ${SPM} |
+LANDID='eng'
+echo ${REPLY} | 
+./model/preprocess.sh _ ${LANDID} ${SPM} |
 ${DECODER} -c ${SET} | ./model/postprocess.sh 
