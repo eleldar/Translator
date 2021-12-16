@@ -5,8 +5,9 @@ then
   wget https://object.pouta.csc.fi/Tatoeba-MT-models/eng-ara/opus+bt-2021-04-13.zip
   unzip opus+bt-2021-04-13.zip -d ./model/
   rm opus+bt-2021-04-13.zip
+       https://object.pouta.csc.fi/Tatoeba-MT-models/eng-ara/opus+bt-2021-04-13.zip
 fi
-if ! [ -d ./marian-dev/ ]
+if ! [ -d ./tools/ ]
 then
   ln -s ~/ ./tools
 fi

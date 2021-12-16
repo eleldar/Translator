@@ -15,5 +15,6 @@ EOF
 SPM=./model/source.spm
 DECODER=./tools/marian-dev/build/marian-decoder 
 SET=./model/decoder.yml
-./model/preprocess.sh _ ${SPM} < ./src.tmp | ${DECODER} -c ${SET} | ./model/postprocess.sh 
+LANDID="ara"
+./model/preprocess.sh _ ${LANDID} ${SPM} < ./src.tmp | ${DECODER} -c ${SET} | ./model/postprocess.sh 
 rm ./src.tmp

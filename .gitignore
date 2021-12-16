@@ -8,3 +8,6 @@ examples/huggingface_translation/en_ru/marian-dev
 examples/huggingface_translation/ar_ru/model/
 examples/huggingface_translation/ar_ru/mosesdecoder/
 examples/huggingface_translation/ar_ru/tools
+examples/huggingface_translation/en_ar/model/
+examples/huggingface_translation/en_ar/mosesdecoder/
+examples/huggingface_translation/en_ar/tools

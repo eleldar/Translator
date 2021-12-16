@@ -13,10 +13,11 @@ with open('src.tmp', 'w', encoding='utf-8') as f:
     f.write(f"{result}\n")
 EOF
 SPM=./model/source.spm
-DECODER=./marian-dev/build/marian-decoder 
-VOCAB=./model/opus.spm32k-spm32k.vocab.yml
-MODEL=./model/opus.spm32k-spm32k.transformer-align.model1.npz.best-perplexity.npz
-./model/preprocess.sh _ ${SPM} < ./src.tmp |
+DECODER=./tools/marian-dev/build/marian-decoder 
+VOCAB=./model/opus+bt.spm32k-spm32k.vocab.yml
+MODEL=./model/opus+bt.spm32k-spm32k.transformer-align.model1.npz.best-perplexity.npz
+LANDID="ara"
+./model/preprocess.sh _ ${LANDID} ${SPM} < ./src.tmp |
 ${DECODER} -m ${MODEL} -v ${VOCAB} ${VOCAB} | 
 ./model/postprocess.sh 
 rm ./src.tmp
