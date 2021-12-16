@@ -2,9 +2,9 @@
 if ! [ -d ./model/ ]
 then
   mkdir model
-  wget https://object.pouta.csc.fi/Tatoeba-MT-models/eng-ara/opus+bt-2021-04-13.zip
-  unzip opus+bt-2021-04-13.zip -d ./model/
-  rm opus+bt-2021-04-13.zip
+  wget https://object.pouta.csc.fi/Tatoeba-MT-models/zle-eng/opus1m+bt-2021-05-02.zip
+  unzip opus1m+bt-2021-05-02.zip -d ./model/
+  rm opus1m+bt-2021-05-02.zip
 fi
 if ! [ -d ./tools/ ]
 then

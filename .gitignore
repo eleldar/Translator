@@ -17,3 +17,9 @@ examples/huggingface_translation/ar_en/afa/mosesdecoder/
 examples/huggingface_translation/ar_en/sem/model/
 examples/huggingface_translation/ar_en/sem/mosesdecoder/
 examples/huggingface_translation/ar_en/sem/tools
+examples/huggingface_translation/ru_ar/model/
+examples/huggingface_translation/ru_ar/mosesdecoder/
+examples/huggingface_translation/ru_ar/tools
+examples/huggingface_translation/ru_en/model/
+examples/huggingface_translation/ru_en/mosesdecoder/
+examples/huggingface_translation/ru_en/tools
