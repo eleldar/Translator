@@ -23,3 +23,6 @@ examples/huggingface_translation/ru_ar/tools
 examples/huggingface_translation/ru_en/model/
 examples/huggingface_translation/ru_en/mosesdecoder/
 examples/huggingface_translation/ru_en/tools
+examples/DeepPavlov_translation/marianmt-tatoeba-enru/
+examples/DeepPavlov_translation/marianmt-tatoeba-ruen/
+examples/train/content/

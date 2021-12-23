@@ -1,0 +1,6 @@
+[submodule "examples/train/Maverick_2.0_Translation_layer"]
+	path = examples/train/Maverick_2.0_Translation_layer
+	url = https://github.com/vanadnarayane26/Maverick_2.0_Translation_layer.git
+[submodule "examples/train/lalita-mt-zhth"]
+	path = examples/train/lalita-mt-zhth
+	url = https://github.com/LalitaDeelert/lalita-mt-zhth.git
