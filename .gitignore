@@ -28,3 +28,5 @@ examples/DeepPavlov_translation/marianmt-tatoeba-ruen/
 examples/train/content/
 lightning_logs/
 data/
+examples/web_translation/__pycache__/
+examples/web_translation/venv/
