@@ -26,3 +26,5 @@ examples/huggingface_translation/ru_en/tools
 examples/DeepPavlov_translation/marianmt-tatoeba-enru/
 examples/DeepPavlov_translation/marianmt-tatoeba-ruen/
 examples/train/content/
+lightning_logs/
+data/
