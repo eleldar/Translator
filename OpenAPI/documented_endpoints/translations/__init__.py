@@ -4,39 +4,41 @@ from flask_restplus import Namespace, Resource, fields
 
 namespace = Namespace('translation', 'Translation')
 
-translation_model = namespace.model('Translation', {
+translation_model = namespace.model('Source', {
     'text': fields.String(
         required=True,
-        description='Text for translation'
+        description='Text for translation',
+        example='Hello World!'
     ),
     'sourceLanguage': fields.String(
         required=True,
-        description='Source languge ID'
+        description='Source languge ID',
+        example='en'
     ),
     'targetLanguage': fields.String(
         required=True,
-        description='Sourse language ID'
-    ),
-    'message': fields.String(
-     #   required=True,
-        readonly=True,
-        description='Translated text'
+        description='Sourse language ID',
+        example='ru'
     ),
 })
 
+return_model = namespace.model('Result', {
+    'message': fields.String(
+        readonly=True,
+        description='Translated text',
+        example='Привет Мир!'
+    ),
+})
 
 @namespace.route('')
 class translations(Resource):
     '''POST'''
-
+    @namespace.response(200, 'Ok', model=return_model)
     @namespace.expect(translation_model)
-    @namespace.marshal_with(translation_model)
+
     def post(self):
         '''POST'''
         translation_example = {
-            'text': 'text',
-            'sourceLanguage': 'sourceLanguage',
-            'targetLanguage': 'targetLanguage',
             'message': 'Translated text'
         }
 

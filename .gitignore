@@ -36,4 +36,7 @@ OpenAPI/documented_endpoints/__pycache__/
 OpenAPI/documented_endpoints/translations/__pycache__/
 examples/web_translation/ngrok
 examples/web_translation/ngrok-stable-linux-amd64.tgz
-
+OpenAPI/api/__pycache__/
+examples/huggingface_translation/ru_ar/input.ru
+examples/huggingface_translation/ru_ar/output.ar
+examples/huggingface_translation/ru_en/input.ru
