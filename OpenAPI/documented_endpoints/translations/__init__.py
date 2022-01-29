@@ -1,6 +1,7 @@
 # documented_endpoints/translations/__init__.py
 from flask import request
 from flask_restplus import Namespace, Resource, fields
+from api.translations import get_sentences
 
 namespace = Namespace('translation', 'Translation')
 
@@ -38,8 +39,11 @@ class translations(Resource):
 
     def post(self):
         '''POST'''
-        translation_example = {
-            'message': 'Translated text'
+        req = request.json
+        direct = f"{req['sourceLanguage']}-{req['targetLanguage']}"
+        source = req['text']
+        message = {
+            'message': get_sentences(direct, source)
         }
 
-        return translation_example, 200
+        return message, 200
