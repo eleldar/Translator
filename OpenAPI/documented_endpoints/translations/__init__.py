@@ -5,7 +5,7 @@ from api.translations import get_sentences
 
 namespace = Namespace('translation', 'Translation')
 
-translation_model = namespace.model('Source', {
+translation_model = namespace.model('Translation source', {
     'text': fields.String(
         required=True,
         description='Text for translation',
@@ -23,7 +23,7 @@ translation_model = namespace.model('Source', {
     ),
 })
 
-return_model = namespace.model('Result', {
+return_model = namespace.model('Translation result', {
     'message': fields.String(
         readonly=True,
         description='Translated text',

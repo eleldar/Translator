@@ -1,3 +1,4 @@
+import os.path
 import torch
 from transformers import MarianMTModel, MarianTokenizer
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
@@ -14,20 +15,37 @@ checkpoints = {
     'ar-en': 'Helsinki-NLP/opus-mt-ar-en',
 }
 
-languages = {
-    'en-ru': {'model': model(checkpoints['en-ru']), 'tokenizer': tokenizer(checkpoints['en-ru'])},
-    'ar-ru': {'model': model(checkpoints['ar-ru']), 'tokenizer': tokenizer(checkpoints['ar-ru'])},
-    'ru-ar': {'model': model(checkpoints['ru-ar']), 'tokenizer': tokenizer(checkpoints['ru-ar'])},
-    'ru-en': {'model': model(checkpoints['ru-en']), 'tokenizer': tokenizer(checkpoints['ru-en'])},
-    'en-ar': {'model': model(checkpoints['en-ar']), 'tokenizer': tokenizer(checkpoints['en-ar'])},
-    'ar-en': {'model': model(checkpoints['ar-en']), 'tokenizer': tokenizer(checkpoints['ar-en'])},
-}
+
+def replace_strings(direct):
+    '''аргументы для замены исходных строк на целевые'''
+    file = f'replace.{direct}'
+    with open(file) as f:
+        lines = f.readlines()
+        commands = set(tuple(i.strip().split('/')[1:3]) for i in lines)
+    return commands
+
+
+def replaced_text(commands, text):
+    '''предобработка входного текста'''
+    for command in commands:
+        text = text.replace(command[0], command[1])
+        text = text.replace('\\', '')
+    return text
+
+
+# словарь моделей на основе checkpoints
+languages = {cp: {'model': model(checkpoints[cp]), 'tokenizer': tokenizer(checkpoints[cp])} for cp in checkpoints}
+
+# словарь команд для предобработки на основе файла с расширением направления перевода и checkpoints
+commands = {cp: replace_strings(cp) for cp in checkpoints if os.path.exists(f'replace.{cp}')}
 
 no_split_languages = {'ar'} # языки, предложения для которых нельзя разбить
 prefix_languages = {'ar': '>>ara<< '} # мультиязычные словари
 
+
 def translate(model, tokenizer, direct, text):
     '''перевод одного предложения'''
+    text = replaced_text(commands[direct], text) if direct in commands else text
     input_ids = tokenizer(text, return_tensors="pt").input_ids
     output_ids = model.generate(input_ids)[0]
     output = tokenizer.decode(output_ids, skip_special_tokens=True)
