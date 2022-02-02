@@ -40,3 +40,7 @@ OpenAPI/api/__pycache__/
 examples/huggingface_translation/ru_ar/input.ru
 examples/huggingface_translation/ru_ar/output.ar
 examples/huggingface_translation/ru_en/input.ru
+OpenAPI/__pycache__/
+OpenAPI/api/tools/__pycache__/
+OpenAPI/ngrok
+

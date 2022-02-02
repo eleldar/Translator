@@ -35,15 +35,18 @@ return_model = namespace.model('Translation result', {
 class translations(Resource):
     '''POST'''
     @namespace.response(200, 'Ok', model=return_model)
+    @namespace.response(404, 'Directs error')
     @namespace.expect(translation_model)
 
     def post(self):
         '''POST'''
-        req = request.json
-        direct = f"{req['sourceLanguage']}-{req['targetLanguage']}"
-        source = req['text']
-        message = {
-            'message': get_sentences(direct, source)
-        }
-
-        return message, 200
+        try:
+            req = request.json
+            direct = f"{req['sourceLanguage']}-{req['targetLanguage']}"
+            source = req['text']
+            message = {
+                'message': get_sentences(direct, source)
+            }
+            return message, 200
+        except KeyError:
+            return 'Directs error!', 404
