@@ -43,4 +43,5 @@ examples/huggingface_translation/ru_en/input.ru
 OpenAPI/__pycache__/
 OpenAPI/api/tools/__pycache__/
 OpenAPI/ngrok
+OpenAPI/models/
 

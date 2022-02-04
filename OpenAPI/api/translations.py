@@ -1,3 +1,4 @@
+import os
 import os.path
 import torch
 from .tools.preprocess import get_commands, preprocess_text
@@ -7,13 +8,15 @@ from sentence_splitter import SentenceSplitter, split_text_into_sentences
 model = MarianMTModel.from_pretrained
 tokenizer = MarianTokenizer.from_pretrained
 
+directory = 'models' if os.listdir('models') else 'Helsinki-NLP'
+
 checkpoints = {
-    'en-ru': 'Helsinki-NLP/opus-mt-en-ru', 
-    'ar-ru': 'Helsinki-NLP/opus-mt-ar-ru',
-    'ru-ar': 'Helsinki-NLP/opus-mt-ru-ar',
-    'ru-en': 'Helsinki-NLP/opus-mt-ru-en',
-    'en-ar': 'Helsinki-NLP/opus-mt-en-ar',
-    'ar-en': 'Helsinki-NLP/opus-mt-ar-en',
+    'en-ru': f'{directory}/opus-mt-en-ru', 
+    'ar-ru': f'{directory}/opus-mt-ar-ru',
+    'ru-ar': f'{directory}/opus-mt-ru-ar',
+    'ru-en': f'{directory}/opus-mt-ru-en',
+    'en-ar': f'{directory}/opus-mt-en-ar',
+    'ar-en': f'{directory}/opus-mt-ar-en',
 }
 
 

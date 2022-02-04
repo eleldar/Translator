@@ -1,5 +1,6 @@
 import os.path
 import os
+import codecs
 
 # при импортировании адрес меняется на адрес пакета, поэтому добавляем эту диркторию
 curdir = os.path.abspath(os.curdir) + '/api/tools'
@@ -7,7 +8,7 @@ curdir = os.path.abspath(os.curdir) + '/api/tools'
 def read_commands(direct):
     '''аргументы для замены исходных строк на целевые'''
     file = f'{curdir}/replace.{direct}'
-    with open(file) as f:
+    with codecs.open(file, 'r', 'utf_8_sig') as f:
         lines = f.readlines()
         commands = set(tuple(i.strip().split('/')[1:3]) for i in lines if '#' not in i)
     return commands
