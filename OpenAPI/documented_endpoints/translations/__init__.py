@@ -44,8 +44,10 @@ class translations(Resource):
             req = request.json
             direct = f"{req['sourceLanguage']}-{req['targetLanguage']}"
             source = req['text']
+            result = get_sentences(direct, source)
             message = {
-                'message': get_sentences(direct, source)
+                'message': result[0],
+                'test': result[1]
             }
             return message, 200
         except KeyError:
