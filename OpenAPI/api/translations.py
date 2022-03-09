@@ -1,5 +1,4 @@
 import os
-import os.path
 import torch
 from .tools.preprocess import get_commands, preprocess_text
 from transformers import MarianMTModel, MarianTokenizer
@@ -10,6 +9,9 @@ import psutil
 model = MarianMTModel.from_pretrained
 tokenizer = MarianTokenizer.from_pretrained
 
+# директория models
+if not (os.path.exists('models') and os.path.isdir('models')):
+    os.mkdir('models')
 directory = 'models' if os.listdir('models') else 'Helsinki-NLP'
 
 checkpoints = {
