@@ -6,6 +6,8 @@ from sentence_splitter import SentenceSplitter, split_text_into_sentences
 import time
 import psutil
 
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+
 model = MarianMTModel.from_pretrained
 tokenizer = MarianTokenizer.from_pretrained
 
@@ -42,11 +44,12 @@ def translate(model, tokenizer, direct, text):
     preproc = time.time() - preproc
 
     token = time.time()
-    input_ids = tokenizer(text, return_tensors="pt").input_ids
+    input_ids = tokenizer(text, return_tensors="pt").to(device)
     token = time.time() - token
 
     generate = time.time()
-    output_ids = model.generate(input_ids)[0]
+    model = model.to(device)
+    output_ids = model.generate(**input_ids)[0]
     generate = time.time() - generate
 
     decode = time.time()
@@ -101,8 +104,7 @@ def get_sentences(direct, text):
     resources['memory_start'] = sum(resources['memory_start']) / len(resources['memory_start'])
     resources['memory_end'] = sum(resources['memory_end']) / len(resources['memory_end'])
     resources['memory'] = resources['memory_end'] - resources['memory_start']
-#    del resources['memory_start']
-#    del resources['memory_end']
+    resources['device'] = device
     return " ".join(result), resources
 
 
