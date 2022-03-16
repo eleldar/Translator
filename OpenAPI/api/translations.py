@@ -4,6 +4,8 @@ from .tools.preprocess import get_commands, preprocess_text
 from transformers import MarianMTModel, MarianTokenizer
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
 
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+
 model = MarianMTModel.from_pretrained
 tokenizer = MarianTokenizer.from_pretrained
 
@@ -36,8 +38,9 @@ prefix_languages = {'ar': '>>ara<< '} # мультиязычные словар�
 def translate(model, tokenizer, direct, text):
     '''перевод одного предложения'''
     text = preprocess_text(commands[direct], text) if direct in commands else text
-    input_ids = tokenizer(text, return_tensors="pt").input_ids
-    output_ids = model.generate(input_ids)[0]
+    input_ids = tokenizer(text, return_tensors="pt").to(device)
+    model = model.to(device)
+    output_ids = model.generate(**input_ids)[0]
     output = tokenizer.decode(output_ids, skip_special_tokens=True)
     return output
 
