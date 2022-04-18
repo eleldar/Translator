@@ -30,6 +30,15 @@
 └── diff_translated_normal.xlsx  # фразы, отличные от эталона
 ```
 
+* англо-русский корпус из тестового набора данных, используемый для модели [Helsinki-NLP
+/
+opus-mt-ru-en](https://huggingface.co/Helsinki-NLP/opus-mt-ru-en)
+```
+.
+├── test_en-ru_opus_1-src_2-tgt_3-translation.txt # исходный файл (5000)
+└── test_opus_en-ru_dataset.xlsx # корпус en-ru
+```
+
 ## Сценарии для работы с набором данных 
 
 Файл
