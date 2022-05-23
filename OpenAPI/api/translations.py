@@ -9,27 +9,40 @@ device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
 model = MarianMTModel.from_pretrained
 tokenizer = MarianTokenizer.from_pretrained
 
-# директория models
-if not (os.path.exists('models') and os.path.isdir('models')):
-    os.mkdir('models')
-directory = 'models' if os.listdir('models') else 'Helsinki-NLP'
+# Translation models path
+local_path = os.path.join('models', 'translation')
+remote_path = 'Helsinki-NLP'
+remote_prefix = 'opus-mt'
 
+# Check and make translation model directory
+if not (os.path.exists(local_path) and os.path.isdir(local_path)):
+    os.makedirs(local_path, exist_ok=True)
 
-checkpoints = {
-    'en-ru': f'{directory}/opus-mt-en-ru', 
-    'ar-ru': f'{directory}/opus-mt-ar-ru',
-    'ru-ar': f'{directory}/opus-mt-ru-ar',
-    'ru-en': f'{directory}/opus-mt-ru-en',
-    'en-ar': f'{directory}/opus-mt-en-ar',
-    'ar-en': f'{directory}/opus-mt-ar-en',
+directs = {'en-ru', 
+           'ar-ru',
+           'ru-ar',
+           'ru-en',
+           'en-ar',
+           'ar-en',
 }
 
-
-# словарь моделей на основе checkpoints
-languages = {cp: {'model': model(checkpoints[cp]), 'tokenizer': tokenizer(checkpoints[cp])} for cp in checkpoints}
+# Languages dictionary and saved translation local models
+languages = {}
+for direct in directs:
+    local_dir = os.path.join(local_path, direct)
+    try:
+        languages[direct] = {'model': model(local_dir), 'tokenizer': tokenizer(local_dir)}
+    except:
+        remote_dir = '/'.join([remote_path, f'{remote_prefix}-{direct}'])
+        remote_model = model(remote_dir)
+        remote_tokinizer =  tokenizer(remote_dir)
+        languages[direct] = {'model': remote_model, 'tokenizer': remote_tokinizer} 
+        remote_model.save_pretrained(local_dir)
+        remote_tokinizer.save_pretrained(local_dir)
+   
 
 # словарь команд для предобработки на основе файла с расширением направления перевода и checkpoints
-commands = get_commands(checkpoints)
+commands = get_commands(directs)
 
 no_split_languages = {'ar'} # языки, предложения для которых нельзя разбить
 prefix_languages = {'ar': '>>ara<< '} # мультиязычные словари
@@ -55,7 +68,6 @@ def get_sentences(direct, text):
     prefix = prefix_languages[target] if target in prefix_languages else ''
     if source not in no_split_languages:
         for sent in split_text_into_sentences(text, language=source):
-            sent = prefix + sent
             result.append(translate(model, tokenizer, direct, sent))
     else:
         for sent in text.split('.'):
