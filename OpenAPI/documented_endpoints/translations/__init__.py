@@ -1,7 +1,8 @@
 # documented_endpoints/translations/__init__.py
+import os
 from flask import request
 from flask_restplus import Namespace, Resource, fields
-from api.translations import get_sentences
+from api.translations import translate
 
 namespace = Namespace('translation', 'Translation')
 
@@ -45,7 +46,7 @@ class translations(Resource):
             direct = f"{req['sourceLanguage']}-{req['targetLanguage']}"
             source = req['text']
             message = {
-                'message': get_sentences(direct, source)
+                'message': translate(direct, source)
             }
             return message, 200
         except KeyError:

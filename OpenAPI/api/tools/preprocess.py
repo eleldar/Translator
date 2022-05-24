@@ -1,9 +1,11 @@
-import os.path
 import os
+from pathlib import Path
 import codecs
 
-# при импортировании адрес меняется на адрес пакета, поэтому добавляем эту диркторию
-curdir = os.path.abspath(os.curdir) + '/api/tools'
+# при импортировании адрес меняется на адрес пакета, поэтому директория вычисляемая
+drive, path_and_file = os.path.splitdrive(Path(__file__).absolute())
+path, file = os.path.split(path_and_file)
+curdir = os.path.join(path)
 
 def read_commands(direct):
     '''аргументы для замены исходных строк на целевые'''
@@ -14,10 +16,10 @@ def read_commands(direct):
     return commands
 
 
-def get_commands(checkpoints): 
+def get_commands(directs): 
     '''словарь команд для предобработки на основе 
-    файла с расширением направления перевода и checkpoints'''
-    commands = {cp: read_commands(cp) for cp in checkpoints if os.path.exists(f'{curdir}/replace.{cp}')}
+    файла с расширением направления перевода и directs'''
+    commands = {cp: read_commands(cp) for cp in directs if os.path.exists(f'{curdir}/replace.{cp}')}
     return commands
 
 
@@ -30,11 +32,10 @@ def preprocess_text(commands, text):
 
 
 # пример словаря с моделями; в реальности не используется
-checkpoints = {
-   'en-ru': 'Helsinki-NLP/opus-mt-en-ru',
-   'ar-en': 'Helsinki-NLP/opus-mt-ar-en',
+directs = {
+   'en-ru',
+   'ar-en'
 }
 
 if __name__ == '__main__':
-    curdir = os.path.abspath(os.curdir)  
-    print(get_commands(checkpoints))
+    print(get_commands(directs))

@@ -43,5 +43,7 @@ examples/marian-nmt/ru_en/input.ru
 OpenAPI/__pycache__/
 OpenAPI/api/tools/__pycache__/
 OpenAPI/ngrok
-OpenAPI/models/
 test_dataset/__pycache__/
+OpenAPI/models/
+OpenAPI/venv/
+OpenAPI/api/models/
