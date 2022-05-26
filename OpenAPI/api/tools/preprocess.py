@@ -4,12 +4,12 @@ import codecs
 
 # при импортировании адрес меняется на адрес пакета, поэтому директория вычисляемая
 drive, path_and_file = os.path.splitdrive(Path(__file__).absolute())
-path, file = os.path.split(path_and_file)
-curdir = os.path.join(path)
+path, _ = os.path.split(path_and_file)
+curdir = os.path.join(drive, path)
 
 def read_commands(direct):
     '''аргументы для замены исходных строк на целевые'''
-    file = f'{curdir}/replace.{direct}'
+    file = os.path.join(curdir, 'replace_commands', f'replace.{direct}')
     with codecs.open(file, 'r', 'utf_8_sig') as f:
         lines = f.readlines()
         commands = set(tuple(i.strip().split('/')[1:3]) for i in lines if '#' not in i)
@@ -19,7 +19,8 @@ def read_commands(direct):
 def get_commands(directs): 
     '''словарь команд для предобработки на основе 
     файла с расширением направления перевода и directs'''
-    commands = {cp: read_commands(cp) for cp in directs if os.path.exists(f'{curdir}/replace.{cp}')}
+    files = os.path.join(curdir, 'replace_commands')
+    commands = {cp: read_commands(cp) for cp in directs if os.path.exists(os.path.join(files, f'replace.{cp}'))}
     return commands
 
 
