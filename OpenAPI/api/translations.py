@@ -31,7 +31,7 @@ curdir = os.path.join(drive, path)
 
 # Import tools
 sys.path.append(curdir)
-from tools.preprocess import get_commands, preprocess_text
+from tools.preprocess import get_commands, text_preprocess, sent_preprocess
 commands = get_commands(directs)
 
 # Models settings
@@ -54,17 +54,11 @@ for direct in directs:
         languages[direct] = {'model': remote_model, 'tokenizer': remote_tokinizer} 
         remote_model.save_pretrained(local_dir)
         remote_tokinizer.save_pretrained(local_dir)
-   
-
-def cleaner(text):
-    text = text.replace('&#xD;&#xA;', ' ')
-    text = text.replace('\n', ' ')
-    return text
 
 
 def sent_translation(model, tokenizer, direct, text):
     '''перевод одного предложения'''
-    text = preprocess_text(commands[direct], text) if direct in commands else text
+    text = sent_preprocess(commands[direct], text) if direct in commands else text
     input_ids = tokenizer(text, return_tensors="pt").to(device)
     model = model.to(device)
     output_ids = model.generate(**input_ids)[0]
@@ -74,12 +68,12 @@ def sent_translation(model, tokenizer, direct, text):
 
 def translate(direct, text):
     '''обработка нескольких предложений'''
+    text = text_preprocess(text)
     src = languages[direct]
     model, tokenizer = src['model'], src['tokenizer']
     result = []
     source, target = direct.split('-')
     prefix = prefix_languages[target] if target in prefix_languages else ''
-    text = cleaner(text)
     if source not in no_split_languages:
         sents = split_text_into_sentences(text, language=source)
     else:

@@ -23,9 +23,14 @@ def get_commands(directs):
     commands = {cp: read_commands(cp) for cp in directs if os.path.exists(os.path.join(files, f'replace.{cp}'))}
     return commands
 
+def text_preprocess(text):
+    '''предобработка всего текста'''
+    text = text.replace('&#xD;&#xA;', ' ')
+    text = text.replace('\n', ' ')
+    return text
 
-def preprocess_text(commands, text):
-    '''предобработка входного текста'''
+def sent_preprocess(commands, text):
+    '''предобработка предложения'''
     for command in commands:
         text = text.replace(command[0], command[1])
         text = text.replace('\\', '')
