@@ -7,13 +7,13 @@ from transformers import MarianMTModel, MarianTokenizer
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
 
 # Language translation settings
-directs = {'en-ru', 
+directs = ['en-ru', 
            'ar-ru',
            'ru-ar',
            'ru-en',
            'en-ar',
            'ar-en',
-}
+]
 no_split_languages = {'ar'} # языки, предложения для которых нельзя разбить
 prefix_languages = {'ar': '>>ara<< '} # мультиязычные словари
 
@@ -32,6 +32,7 @@ curdir = os.path.join(drive, path)
 # Import tools
 sys.path.append(curdir)
 from tools.preprocess import get_commands, text_preprocess, sent_preprocess
+from tools.prestarter import examples
 commands = get_commands(directs)
 
 # Models settings
@@ -40,6 +41,7 @@ tokenizer = MarianTokenizer.from_pretrained
 local_path = os.path.join(curdir, 'models', 'translation')
 if not (os.path.exists(local_path) and os.path.isdir(local_path)):
     os.makedirs(local_path, exist_ok=True)
+print('Used models track:')
 languages = {}
 for direct in directs:
     local_dir = os.path.join(local_path, direct)
@@ -84,10 +86,25 @@ def translate(direct, text):
             result.append(sent_translation(model, tokenizer, direct, sent))
     return " ".join(result)
 
+def prestart(directs):
+    print('-' * 50)
+    print('Prestarted track:')
+    result = {}
+    for direct in directs:
+        result[direct] = []
+        for example in examples(direct):
+            result[direct].append(True if translate(direct, example) else False)
+        print(f'Direct {direct} successfully prestarted {len(result[direct])} sentences' if result[direct] else f'Prestart direct {direct} is bad')
+    print('Result: ', end='')
+    return {key: len(value) for key, value in result.items()}
+
 
 if __name__ == '__main__':
     text = translate('en-ru', 'Hello, world')
     print(text)
 
+
+print('-' * 50)
 print('Using GPU' if device == 'cuda:0' else 'Using only CPU')
 print('Preprocess commands is ok' if commands else 'Not found preprocess commands')
+print('Prestart is ok' if all(i for i in prestart(directs).values()) else 'Some prestart directs are not made')
