@@ -33,6 +33,7 @@ curdir = os.path.join(drive, path)
 sys.path.append(curdir)
 from tools.preprocess import get_commands, text_preprocess, sent_preprocess
 from tools.prestarter import examples
+from tools.language_detection import text_detection, sent_detection
 commands = get_commands(directs)
 
 # Models settings
@@ -58,10 +59,10 @@ for direct in directs:
         remote_tokinizer.save_pretrained(local_dir)
 
 
-def sent_translation(model, tokenizer, direct, text):
+def sent_translation(model, tokenizer, direct, sent):
     '''перевод одного предложения'''
-    text = sent_preprocess(commands[direct], text) if direct in commands else text
-    input_ids = tokenizer(text, return_tensors="pt").to(device)
+    sent = sent_preprocess(commands[direct], sent) if direct in commands else sent
+    input_ids = tokenizer(sent, return_tensors="pt").to(device)
     model = model.to(device)
     output_ids = model.generate(**input_ids)[0]
     output = tokenizer.decode(output_ids, skip_special_tokens=True)
@@ -81,9 +82,11 @@ def translate(direct, text):
     else:
         sents = text.split('.')
     for sent in sents:
-        if sent:
+        if sent and sent_detection(sent, direct):
             sent = prefix + sent
             result.append(sent_translation(model, tokenizer, direct, sent))
+        elif sent:
+            result.append(sent)
     return " ".join(result)
 
 def prestart(directs):

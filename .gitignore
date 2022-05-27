@@ -47,3 +47,4 @@ test_dataset/__pycache__/
 OpenAPI/models/
 OpenAPI/venv/
 OpenAPI/api/models/
+__pycache__/

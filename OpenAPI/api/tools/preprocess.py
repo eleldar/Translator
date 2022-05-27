@@ -7,6 +7,7 @@ drive, path_and_file = os.path.splitdrive(Path(__file__).absolute())
 path, _ = os.path.split(path_and_file)
 curdir = os.path.join(drive, path)
 
+
 def read_commands(direct):
     '''аргументы для замены исходных строк на целевые'''
     file = os.path.join(curdir, 'replace_commands', f'replace.{direct}')
@@ -23,11 +24,13 @@ def get_commands(directs):
     commands = {cp: read_commands(cp) for cp in directs if os.path.exists(os.path.join(files, f'replace.{cp}'))}
     return commands
 
+
 def text_preprocess(text):
     '''предобработка всего текста'''
     text = text.replace('&#xD;&#xA;', ' ')
     text = text.replace('\n', ' ')
     return text
+
 
 def sent_preprocess(commands, text):
     '''предобработка предложения'''
@@ -37,11 +40,9 @@ def sent_preprocess(commands, text):
     return text
 
 
-# пример словаря с моделями; в реальности не используется
-directs = {
-   'en-ru',
-   'ar-en'
-}
-
 if __name__ == '__main__':
+    directs = [ # пример списка направлений
+       'en-ru',
+       'ar-en'
+    ]
     print(get_commands(directs))
