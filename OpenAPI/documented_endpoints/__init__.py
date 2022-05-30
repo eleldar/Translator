@@ -13,7 +13,7 @@ description += 'where "en" - English, "ru" - Russian, "ar" - Arabic'
 api_extension = Api(
     blueprint,
     title = 'NLP',
-    version = '0.1',
+    version = '0.2',
     description = description, 
     doc='/'
 )
