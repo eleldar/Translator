@@ -1,6 +1,5 @@
 import os
 import sys
-import torch
 from pathlib import Path
 from contextlib import redirect_stdout
 from transformers import MarianMTModel, MarianTokenizer
@@ -15,8 +14,7 @@ prefix_languages = {'ar': '>>ara<< '} # мультиязычные словар�
 remote_path = 'Helsinki-NLP'
 remote_prefix = 'opus-mt'
 
-# Device settings
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device = 'cpu'
 
 # Local path settings
 drive, path_and_file = os.path.splitdrive(Path(__file__).absolute())
@@ -27,7 +25,7 @@ curdir = os.path.join(drive, path)
 sys.path.append(curdir)
 from tools.preprocess import get_commands, text_preprocess, sent_preprocess
 from tools.prestarter import examples
-from tools.language_detection import text_detection, sent_detection
+from tools.language_detection import sent_detection
 commands = get_commands(directs)
 
 # Models settings
