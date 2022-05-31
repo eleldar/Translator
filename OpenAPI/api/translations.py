@@ -7,13 +7,7 @@ from transformers import MarianMTModel, MarianTokenizer
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
 
 # Language translation settings
-directs = ['en-ru', 
-           'ar-ru',
-           'ru-ar',
-           'ru-en',
-           'en-ar',
-           'ar-en',
-]
+directs = ['en-ru',]
 no_split_languages = {'ar'} # языки, предложения для которых нельзя разбить
 prefix_languages = {'ar': '>>ara<< '} # мультиязычные словари
 
