@@ -1,16 +1,14 @@
-import os
 from langdetect import detect
-from pathlib import Path
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 
 
 def sent_detection(sent, direct):
     '''Language ID adaptred for fasttext model'''
-    language_id =  detect(sent)
-    src_id, _ = direct.split('-')
-    return language_id == src_id
+    lang_id =  detect(sent)
+    src_id, tgt_id = direct.split('-')
+    black_list = [tgt_id, 'uk', 'bg', 'cs', 'mk']
+    return (lang_id == src_id or lang_id not in black_list)
 
 
 if __name__ == '__main__':
-    text = 'hello'    
+    text = 'hello world!'    
     print(sent_detection(text, 'en-ru'))
