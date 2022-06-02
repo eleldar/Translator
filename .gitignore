@@ -48,3 +48,6 @@ OpenAPI/models/
 OpenAPI/venv/
 OpenAPI/api/models/
 __pycache__/
+OpenAPI/build/
+OpenAPI/dist/
+OpenAPI/w_venv/

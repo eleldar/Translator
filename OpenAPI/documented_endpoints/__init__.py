@@ -7,7 +7,7 @@ blueprint = Blueprint('api', __name__, url_prefix='/api')
 
 description =  'OpenApi for English - Russia translation.\n\n'
 description += 'To translation you must use next directs:\n'
-description += 'en-ru, where "en" - English, "ru"'
+description += 'en-ru, where "en" - English, "ru" - Russian.'
 
 api_extension = Api(
     blueprint,
